@@ -28,6 +28,11 @@ public class Alumno {
         this.fechaNacimiento = fechaNacimiento;
     }
 
+    public Alumno(int idAlumno) {
+        this.idAlumno = idAlumno;
+    }
+    
+
     //MERODOS SET AND GET
     public int getIdAlumno() {
         return idAlumno;

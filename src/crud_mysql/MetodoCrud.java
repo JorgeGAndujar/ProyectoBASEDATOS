@@ -41,18 +41,66 @@ public class MetodoCrud { //CRUD: CREATE READ  UPDATE      DELETE
         }
         return alumnos_al;
     }
+
     //CREATE (INSERT)
-    public boolean insertarAlumno(Alumno alumno){
+    public boolean insertarAlumno(Alumno alumno) {
         boolean correcto = true;
         String sql = "INSERT INTO Alumno (idAlumno, nombre, apellidos, grupo, fechaNacimiento) VALUES (NULL, ?, ?, ?, ?)";//Quary Paramétrica
-        try{
+        try {
             PreparedStatement ps = conexion.prepareStatement(sql);
             ps.setString(1, alumno.getNombre());
             ps.setString(2, alumno.getApellidos());
             ps.setString(3, alumno.getGrupo());
             ps.setDate(4, alumno.getFechaNacimiento());
             ps.executeUpdate();
-        }catch(SQLException e){
+        } catch (SQLException e) {
+            correcto = false;
+        }
+        return correcto;
+    }
+
+    //UPDATE(UPDATE)
+    public boolean actualizarAlumno(Alumno alumno) {
+        boolean correcto = true;
+        String sql = "UPDATE Alumno SET nombre = ?, grupo = ?\n"
+                + "WHERE idAlumno = ?";//Query Paramétrica
+        try {
+            PreparedStatement ps = conexion.prepareStatement(sql);
+            ps.setString(1, alumno.getNombre());
+            ps.setString(2, alumno.getGrupo());
+            ps.setInt(3, alumno.getIdAlumno());
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            correcto = false;
+        }
+        return correcto;
+    }
+
+    public boolean existeAlumno(Alumno alumno) {
+        boolean existe = true;
+        String sql = "SELECT * FROM ALUMNO WHERE idAlumno = ?";//Query paramétrica
+        try {
+            PreparedStatement ps = conexion.prepareStatement(sql);
+            ps.setInt(1, alumno.getIdAlumno());
+            ResultSet rs = ps.executeQuery();
+            if (!rs.next()) {
+                existe = false;
+            }
+        } catch (SQLException e) {
+            existe = false;
+        }
+        return existe;
+    }
+
+    public boolean eliminarAlumno(Alumno alumno) {
+        boolean correcto = false;
+        String sql = "DELETE FROM Alumno WHERE idAlumno = ?";//Query Paramétrica
+        try {
+            PreparedStatement ps = conexion.prepareStatement(sql);
+            ps.setInt(1, alumno.getIdAlumno());
+            ps.executeUpdate();
+            correcto = true;
+        } catch (SQLException e) {
             correcto = false;
         }
         return correcto;
