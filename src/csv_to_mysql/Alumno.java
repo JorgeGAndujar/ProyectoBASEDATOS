@@ -25,6 +25,11 @@ public class Alumno {
         this.sexo = sexo;
         this.fechaNacimiento = fechaNacimiento;
     }
+
+    public Alumno(int idAlumno) {
+        this.idAlumno = idAlumno;
+    }
+    
     
     //Métodos GET AND SET
 
@@ -59,7 +64,7 @@ public class Alumno {
     public void setFechaNacimiento(Date fechaNacimiento) {
         this.fechaNacimiento = fechaNacimiento;
     }
-
+    //METODOS TOSTRING
     @Override
     public String toString() {
         return "Alumno{" + "idAlumno=" + idAlumno + ", nombreApellido=" + nombreApellido + ", sexo=" + sexo + ", fechaNacimiento=" + fechaNacimiento + '}';

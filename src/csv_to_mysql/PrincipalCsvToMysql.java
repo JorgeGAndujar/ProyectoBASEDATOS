@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.sql.PreparedStatement;
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class PrincipalCsvToMysql {
@@ -17,15 +18,14 @@ public class PrincipalCsvToMysql {
     static Connection conexion = cm.getConexion();
 
     public static void main(String[] args) {
-        
-        
-       List<Alumno> alumnos_al = obtenerListaAlumnos();
-       
-       if(insertarAlumno(alumnos_al)== true){
-         System.out.println("OK INSERT");  
-       }else {
-         System.out.println("ERROR INSERT"); 
-       }
+
+        List<Alumno> alumnos_al = obtenerListaAlumnos();
+
+        if (insertarAlumno(alumnos_al) == true) {
+            System.out.println("OK INSERT");
+        } else {
+            System.out.println("ERROR INSERT");
+        }
 
     }
 
@@ -61,21 +61,41 @@ public class PrincipalCsvToMysql {
         String sql = "INSERT INTO Alumno (idAlumno,nombre_apellido,sexo,fecha_nacimiento) VALUES (?,?,?,?)";//QUERY PARAMÉTRICA , los interrogantes empiezan en 1
         PreparedStatement ps = null;
         for (Alumno a : alumnos_al) {
-            try {
-                ps = conexion.prepareStatement(sql);
-                ps.setInt(1, a.getIdAlumno());
-                ps.setString(2, a.getNombreApellido());
-                ps.setString(3, a.getSexo());
-                ps.setDate(4, a.getFechaNacimiento());
-                ps.executeUpdate();
-            } catch (SQLException e) {
-                System.out.println("ERROR1: " + e.getMessage());
+            if (!existeAlumno(a)) {
+                try {
+                    ps = conexion.prepareStatement(sql);
+                    ps.setInt(1, a.getIdAlumno());
+                    ps.setString(2, a.getNombreApellido());
+                    ps.setString(3, a.getSexo());
+                    ps.setDate(4, a.getFechaNacimiento());
+                    ps.executeUpdate();
+                } catch (SQLException e) {
+                    System.out.println("ERROR1: " + e.getMessage());
 
+                }
+            }else{
+                System.out.println("ERROR: ALUMNO YA EXISTE");
             }
 
         }
 
         return correcto;
+    }
+
+    public static boolean existeAlumno(Alumno alumno) {
+        boolean existe = true;
+        String sql = "SELECT * FROM ALUMNO WHERE idAlumno = ?";//Query paramétrica
+        try {
+            PreparedStatement ps = conexion.prepareStatement(sql);
+            ps.setInt(1, alumno.getIdAlumno());
+            ResultSet rs = ps.executeQuery();
+            if (!rs.next()) {
+                existe = false;
+            }
+        } catch (SQLException e) {
+            existe = false;
+        }
+        return existe;
     }
 
 }
