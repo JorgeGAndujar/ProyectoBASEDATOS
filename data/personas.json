@@ -1,0 +1,18 @@
+[
+    {
+        "dni": "11111111N",
+        "nombre": "Luis",
+        "apellido": "Jauregui",
+        "direccion": "Av. Ejercito 123",
+        "telefono": "111111111",
+        "nacimiento": "2000-01-01"
+    },
+    {
+        "dni": "12345671N",
+        "nombre": "Silvia",
+        "apellido": "Garcia",
+        "direccion": "Calle Maria 1 3C, Madrid, Torrejon de la Calzada, CP. 28590",
+        "telefono": "66565456",
+        "nacimiento": "1990-02-19"
+    }
+]

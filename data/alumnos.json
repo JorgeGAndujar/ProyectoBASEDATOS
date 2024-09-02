@@ -1,0 +1,28 @@
+[
+    {
+      "idAlumno" : 1,
+      "nombre"   : "Luis",
+      "apellido" : "Jauregui",
+      "estatura" : 1.72,
+      "casado"   : true,
+      "direccion": {
+          "calle" :"Guillermo Marconi", 
+          "numero":123,
+          "ciudad": "Trujillo"
+       },
+       "hobbies": ["Cine","Ajedrez","Leer"] 
+    },
+     {
+      "idAlumno" : 2,
+      "nombre"   : "Miguel",
+      "apellido" : "Sncio",
+      "estatura" : 1.82,
+      "casado"   : false,
+      "direccion": {
+          "calle" :"Orbegozo", 
+          "numero": 456,
+          "ciudad": "Cadiz"
+       },
+       "hobbies": ["Dama","Futbol","Escribir"] 
+    }
+]
